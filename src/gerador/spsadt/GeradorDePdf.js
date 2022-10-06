@@ -4,7 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
 
 var _path = require('path');
 
@@ -14,9 +22,15 @@ var _pdfkit = require('pdfkit');
 
 var _pdfkit2 = _interopRequireDefault(_pdfkit);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
 var FONTES_DIR = _path2.default.join(__dirname, '../fontes');
 var TIMES_NEW_ROMAN = _path2.default.join(FONTES_DIR, 'Times New Roman.ttf');
@@ -31,7 +45,8 @@ var opcoes = {
   titulo: 'GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE DIAGNÓSTICO E TERAPIA - SP /SADT',
   criador: '',
   tamanhoDaFonteDoTitulo: 6,
-  tamanhoDaFonteDoCampo: 8,
+  tamanhoDaFonteDoCampo: 10,
+  tamanhoFonteDoCampoTabela: 8,
   tamanhoDaFonteDoCampoMenor: 6,
   tamanhoDaFonteDaSecao: 5.5,
   tamanhoDaFonteTituloPrincipal: 10,
@@ -74,6 +89,7 @@ var larguraCampoMuitoGrande = 220;
 var larguraCampoNome = 370;
 var larguraCampoIndicacao = 535;
 var cinza = '#dedede';
+var branco = '#fff';
 
 var GeradorDePdf = function () {
   function GeradorDePdf(guia) {
@@ -111,7 +127,7 @@ var GeradorDePdf = function () {
       var x = 0;
       var y = 0;
 
-      this.logotipo(pdf, x, y, larguraCampo);
+      this.logotipo(pdf, x, y - 2, larguraCampo);
       x += larguraCampo + distanciaEntreCampos;
       this.titulo(pdf, opcoes.titulo, x, y, larguraTitulo, opcoes.alinhamentoDoTitulo, opcoes.tamanhoDaFonteTituloPrincipal);
       x += larguraTitulo + distanciaEntreCampos;
@@ -127,7 +143,7 @@ var GeradorDePdf = function () {
       this.campo(pdf, '3 - Nº Guia Principal', this.guia.autorizacao.numeroGuiaPrincipal, x, y, larguraCampoMuitoGrande);
 
       y += alturaCampo + distanciaEntreCampos;
-      x =0;
+      x = 0;
 
       this.campo(pdf, '4 - Data da Autorização', this.guia.autorizacao.dataAutorizacao, x, y, larguraCampoMedio);
       x += larguraCampoMedio + distanciaEntreCampos;
@@ -159,10 +175,9 @@ var GeradorDePdf = function () {
       this.campo(pdf, '13 - Código na Operadora', this.guia.contratadoSolicitante.documentoSolicitante, x, y, larguraCampoGrandeMedio);
       x += larguraCampoGrandeMedio + distanciaEntreCampos;
       this.campo(pdf, '14 - Nome do Contratado', this.guia.contratadoSolicitante.nome, x, y, larguraCampoIndicacao);
-      
+
       y += alturaCampo + distanciaEntreCampos;
       x = 0;
-
 
       this.campo(pdf, '15 - Nome do Profissional Solicitante', this.guia.contratadoSolicitante.profissionalSolicitante.nome, x, y, larguraCampoNome);
       x += larguraCampoNome + distanciaEntreCampos;
@@ -182,7 +197,7 @@ var GeradorDePdf = function () {
       x = 0;
       this.campo(pdf, '21 - Caráter do Atendimento', '', x, y, larguraCampoGrande);
       x += larguraCampoGrande + distanciaEntreCampos;
-      this.campo(pdf, '22 - Data da Solicitação', '|___|___|/|___|___|/|___|___|___|___|', x, y, larguraCampoGrandeMedio);
+      this.campo(pdf, '22 - Data da Solicitação', '', x, y, larguraCampoGrandeMedio);
       x += larguraCampoGrandeMedio + distanciaEntreCampos;
       this.campo(pdf, '23 - Indicação clínica', this.guia.solicitacao.indicacao, x, y, larguraCampoIndicacao);
 
@@ -207,18 +222,18 @@ var GeradorDePdf = function () {
       x += larguraCampo + distanciaEntreCampos;
       this.titulo(pdf, '28 - Quatidade Autorizada', x, y, larguraCampo, 'left');
 
-      for (let index = 0; index < 5; index++) {
+      for (var index = 0; index < 5; index++) {
         y += alturaSecao + distanciaEntreCampos;
         x = distanciaEntreCampos;
-        _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|', x, y, larguraCampoGrandeMedio, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|', x, y, larguraCampoGrandeMedio, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoGrandeMedio + distanciaEntreCampos;
-        _this.valor(pdf, '________________________________________________________________________________________________________________', x, y, larguraCampoNome + 100, 'left', opcoes.larguraCampoGrande);
+        _this.valor(pdf, '________________________________________________________________________________________________________________', x, y, larguraCampoNome + 100, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoNome + 100 + distanciaEntreCampos;
-        _this.valor(pdf, '|___|___|___|', x, y, larguraCampo, 'left', opcoes.larguraCampoPequeno);
+        _this.valor(pdf, '|___|___|___|', x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampo + distanciaEntreCampos;
-        _this.valor(pdf, '|___|___|___|', x, y, larguraCampo, 'left', opcoes.larguraCampoPequeno);
+        _this.valor(pdf, '|___|___|___|', x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
       }
 
       // this.guia.solicitacao.procedimentos.forEach(function (p) {
@@ -235,7 +250,7 @@ var GeradorDePdf = function () {
       //   _this.valor(pdf, p.qtdAutorizada, x, y, larguraCampo, 'left', opcoes.larguraCampoPequeno);
       // });
 
-      y += (altura + 2 * distanciaEntreCampos);
+      y += altura + 2 * distanciaEntreCampos;
       x = 0;
 
       this.secao(pdf, y, 'Dados do Contratado Executante');
@@ -261,7 +276,7 @@ var GeradorDePdf = function () {
 
       y += alturaCampo + distanciaEntreCampos;
       x = 0;
-      
+
       this.secao(pdf, y, 'Dados da Execução / Procedimentos e Exames Realizados');
       y += alturaSecao + distanciaEntreCampos;
       x = 0;
@@ -300,31 +315,31 @@ var GeradorDePdf = function () {
       this.guia.procedimentosRealizados.procedimentos.forEach(function (p) {
         y += alturaSecao + distanciaEntreCampos;
         x = distanciaEntreCampos;
-        _this.valor(pdf, p.data, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.data, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.horaInicial, x, y, larguraCampoPequeno, 'center', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.horaInicial, x, y, larguraCampoPequeno, 'center', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, 'a', x, y, 10, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, 'a', x, y, 10, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += 10 + distanciaEntreCampos;
-        _this.valor(pdf, p.horaFinal, x, y, larguraCampoPequeno, 'center', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.horaFinal, x, y, larguraCampoPequeno, 'center', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.codigoTabela, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.codigoTabela, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.codigo, x, y, larguraCampo, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.codigo, x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampo + distanciaEntreCampos;
-        _this.valor(pdf, p.nome.substring(0, 80), x, y, 280, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.nome.substring(0, 80), x, y, 280, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += 280 + distanciaEntreCampos;
-        _this.valor(pdf, p.qtdRealizada, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.qtdRealizada, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoMuitoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.viaAcesso, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.viaAcesso, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoMuitoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.tecnica, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.tecnica, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoMuitoPequeno + distanciaEntreCampos;
-        _this.valor(pdf, p.reducaoAcrescimoPct, x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.reducaoAcrescimoPct, x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequenoMedio + distanciaEntreCampos;
-        _this.valor(pdf, p.valorUnitario + ',00', x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.valorUnitario + ',00', x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoFonteDoCampoTabela);
         x += larguraCampoPequenoMedio + distanciaEntreCampos;
-        _this.valor(pdf, p.valorTotal + ',00', x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoDaFonteDoCampo);
+        _this.valor(pdf, p.valorTotal + ',00', x, y, larguraCampoPequenoMedio, 'left', opcoes.tamanhoFonteDoCampoTabela);
       });
 
       y += (5 - this.guia.procedimentosRealizados.procedimentos.length) * (alturaSecao + distanciaEntreCampos);
@@ -342,7 +357,7 @@ var GeradorDePdf = function () {
       x = distanciaEntreCampos;
       y += distanciaEntreCampos;
 
-      this.titulo(pdf, '48-Seq.Ref', x, y, larguraCampoPequeno, 'left');
+      this.titulo(pdf, '48-Seq.Ref', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoTitulo);
       x += larguraCampoPequeno + distanciaEntreCampos;
       this.titulo(pdf, '49-Grau Part.', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoTitulo);
       x += larguraCampoPequeno + distanciaEntreCampos;
@@ -360,46 +375,61 @@ var GeradorDePdf = function () {
 
       y += alturaSecao + distanciaEntreCampos;
       x = distanciaEntreCampos;
-      _this.valor(pdf, '01', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.grauParticipacao, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.documentoComplementar, x, y, 200, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, 200, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 200 + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.nomeComplementar, x, y, 170, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, 170, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 170 + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.conselho, x, y, 50, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, 50, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 50 + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.conselhoNumero, x, y, larguraCampoMuitoGrande, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, larguraCampoMuitoGrande, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoMuitoGrande + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.conselhoUF, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoMuitoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, this.guia.contratadoExecutante.cbo, x, y, larguraCampo, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '', x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
 
-      const qtd = this.guia.contratadoExecutante.cbo != null ? 3 : 4;
-
-      for (i= 0; i < 3; i++) {
-      y += alturaSecao + distanciaEntreCampos;
+      y += alturaSecao + distanciaEntreCampos - 5;
       x = distanciaEntreCampos;
-      _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, '01', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.grauParticipacao, x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|___|___|___|___|', x, y, 200, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.documentoComplementar, x, y, 200, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 200 + distanciaEntreCampos;
-      _this.valor(pdf, '________________________________________', x, y, 170, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.nomeComplementar, x, y, 170, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 170 + distanciaEntreCampos;
-      _this.valor(pdf, '|___|___|___|', x, y, 50, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.conselho, x, y, 50, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += 50 + distanciaEntreCampos;
-      _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|', x, y, larguraCampoMuitoGrande, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.conselhoNumero, x, y, larguraCampoMuitoGrande, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoMuitoGrande + distanciaEntreCampos;
-      _this.valor(pdf, '_____', x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.conselhoUF, x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
       x += larguraCampoMuitoPequeno + distanciaEntreCampos;
-      _this.valor(pdf, '__________', x, y, larguraCampo, 'left', opcoes.tamanhoDaFonteDoCampo);
+      _this.valor(pdf, this.guia.contratadoExecutante.cbo, x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
+
+      for (i = 0; i < 2; i++) {
+        y += alturaSecao + distanciaEntreCampos;
+        x = distanciaEntreCampos;
+        _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += larguraCampoPequeno + distanciaEntreCampos;
+        _this.valor(pdf, '|___|___|', x, y, larguraCampoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += larguraCampoPequeno + distanciaEntreCampos;
+        _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|___|___|___|___|', x, y, 200, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += 200 + distanciaEntreCampos;
+        _this.valor(pdf, '________________________________________', x, y, 170, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += 170 + distanciaEntreCampos;
+        _this.valor(pdf, '|___|___|___|', x, y, 50, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += 50 + distanciaEntreCampos;
+        _this.valor(pdf, '|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|', x, y, larguraCampoMuitoGrande, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += larguraCampoMuitoGrande + distanciaEntreCampos;
+        _this.valor(pdf, '_____', x, y, larguraCampoMuitoPequeno, 'left', opcoes.tamanhoFonteDoCampoTabela);
+        x += larguraCampoMuitoPequeno + distanciaEntreCampos;
+        _this.valor(pdf, '__________', x, y, larguraCampo, 'left', opcoes.tamanhoFonteDoCampoTabela);
       }
 
-
-      y += 4 + (4 * distanciaEntreCampos);
+      y += 5 + 4 + 4 * distanciaEntreCampos;
       x = 0;
 
       //----------------------------------------------------------------
@@ -443,7 +473,7 @@ var GeradorDePdf = function () {
       x += distanciaEntreCampos;
       this.titulo(pdf, '58 - Ovservação / Justificativa', x, y, largura, 'left');
       y += altura;
-      this.valor(pdf, this.guia.procedimentosRealizados.observacao, x, y, 5 * (largura + 3 * distanciaEntreCampos), 'left');
+      this.valor(pdf, this.guia.procedimentosRealizados.observacao, x, y, 5 * (largura + 3 * distanciaEntreCampos), 'left', opcoes.tamanhoFonteDoCampoTabela);
 
       largura = (opcoes.larguraDaPagina - margemEsquerda - margemDireita - 7 * distanciaEntreCampos) / 7;
 
@@ -464,14 +494,14 @@ var GeradorDePdf = function () {
       this.campo(pdf, '65 - Total Geral da Guia (R$)', this.guia.procedimentosRealizados.totalGuia + ',00', x, y, largura);
       x += largura + distanciaEntreCampos;
 
-      largura = (opcoes.larguraDaPagina - margemEsquerda - margemDireita - 4 * distanciaEntreCampos) / 4;
+      largura = (opcoes.larguraDaPagina - margemEsquerda - margemDireita - 3 * distanciaEntreCampos) / 3;
       y += alturaCampo + distanciaEntreCampos;
       x = 0;
-      this.campo(pdf, '66 - Assinatura do Responsável pela Autorização', '|____| / |____| / |____|  _______________________________', x, y, largura);
+      this.campo(pdf, '66 - Assinatura do Responsável pela Autorização', '', x, y, largura);
       x += largura + distanciaEntreCampos;
-      this.campo(pdf, '67 - Assinatura do Beneficiário ou Responsável', '|____| / |____| / |____|  _______________________________', x, y, largura);
+      this.campo(pdf, '67 - Assinatura do Beneficiário ou Responsável', '', x, y, largura);
       x += largura + distanciaEntreCampos;
-      this.campo(pdf, '68 - Assinatura do Contratado', '|____| / |____| / |____|  _____________________________', x, y, largura);
+      this.campo(pdf, '68 - Assinatura do Contratado', '', x, y, largura);
       x += largura + distanciaEntreCampos;
 
       var paginas = pdf.bufferedPageRange();
@@ -509,7 +539,7 @@ var GeradorDePdf = function () {
     value: function campo(pdf, titulo, valor, x, y, largura, cor, tamanhoTexto, larguraValor, legenda) {
       this.retangulo(pdf, x, y, largura, alturaCampo, cor);
       this.titulo(pdf, titulo, x + distanciaEntreCampos, y + distanciaEntreCampos, largura, 'left', opcoes.tamanhoDaFonteDoTitulo);
-      this.valor(pdf, valor, x, y + 12, largura - distanciaEntreCampos, 'right', tamanhoTexto);
+      this.valor(pdf, valor, x + 2, y + 11, largura - distanciaEntreCampos, 'left', tamanhoTexto);
 
       if (legenda && larguraValor) {
         this.valor(pdf, legenda, x + larguraValor, y + distanciaEntreCampos, largura - distanciaEntreCampos - larguraValor, 'left', opcoes.tamanhoDaFonteDoCampoMenor);
