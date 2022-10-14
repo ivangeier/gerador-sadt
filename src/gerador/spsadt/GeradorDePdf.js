@@ -161,11 +161,11 @@ var GeradorDePdf = function () {
       x += larguraCampoGrande + distanciaEntreCampos;
       this.campo(pdf, '9 - Valida da Carteira', this.guia.beneficiario.convenio.validadeCarteira, x, y, larguraCampo);
       x += larguraCampo + distanciaEntreCampos;
-      this.campo(pdf, '10 - Nome', this.guia.beneficiario.nome, x, y, larguraCampoNome);
-      x += larguraCampoNome + distanciaEntreCampos;
-      this.campo(pdf, '11 - Número do Cartão Nacional de Saúde', this.guia.beneficiario.numeroCartaoNacionalSaude, x, y, larguraCampoGrande);
-      x += larguraCampoGrande + distanciaEntreCampos;
+      this.campo(pdf, '89 - Nome Social', this.guia.beneficiario.nomeSocial, x, y, larguraCampoMuitoGrande + 30);
+      x += larguraCampoMuitoGrande + 30 + distanciaEntreCampos;
       this.campo(pdf, '12 - Atendimento RN', this.guia.beneficiario.recemNascido, x, y, larguraCampoMedio);
+      x += larguraCampoMedio + distanciaEntreCampos;
+      this.campo(pdf, '10 - Nome', this.guia.beneficiario.nome, x, y, larguraCampoMuitoGrande + 30);
 
       y += alturaCampo + distanciaEntreCampos;
       this.secao(pdf, y, 'Dados do Contratado Solicitante');
@@ -199,7 +199,11 @@ var GeradorDePdf = function () {
       x += larguraCampoGrande + distanciaEntreCampos;
       this.campo(pdf, '22 - Data da Solicitação', '', x, y, larguraCampoGrandeMedio);
       x += larguraCampoGrandeMedio + distanciaEntreCampos;
-      this.campo(pdf, '23 - Indicação clínica', this.guia.solicitacao.indicacao, x, y, larguraCampoIndicacao);
+      this.campo(pdf, '23 - Indicação clínica', this.guia.solicitacao.indicacao, x, y, larguraCampoNome);
+      x += larguraCampoNome + distanciaEntreCampos;
+      this.campo(pdf, '90 - Indicador de Cobertura Especial', '|___|___|', x, y, larguraCampoGrandeMedio);
+
+
 
       y += alturaCampo + distanciaEntreCampos;
       x = 0;
@@ -273,6 +277,11 @@ var GeradorDePdf = function () {
       this.campo(pdf, '34 - Tipo de Consulta', this.guia.atendimento.tipoConsulta, x, y, larguraCampo);
       x += larguraCampo + distanciaEntreCampos;
       this.campo(pdf, '35 - Motivo de Encerramento do Atendimento', this.guia.atendimento.tipoSaida, x, y, larguraCampoGrandeMedio);
+      x += larguraCampoGrandeMedio + distanciaEntreCampos;
+      this.campo(pdf, '91 - Regime de atendimento', this.guia.atendimento.regime, x, y, larguraCampo);
+      x += larguraCampo + distanciaEntreCampos;
+      this.campo(pdf, '92 - Saúde Ocupaciona', this.guia.atendimento.ocupacional, x, y, larguraCampo);
+
 
       y += alturaCampo + distanciaEntreCampos;
       x = 0;

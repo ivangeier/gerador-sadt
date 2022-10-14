@@ -4,7 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
 var Guia = exports.Guia = function Guia(autorizacao, beneficiario, contratadoSolicitante, solicitacao, contratadoExecutante, atendimento, consultaReferencia, procedimentosRealizados, opmSolicitados, opmRealizados) {
   _classCallCheck(this, Guia);

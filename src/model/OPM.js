@@ -4,7 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
 var OPM = exports.OPM = function OPM(codigoTabela, codigo, descricao, quantidade, fabricante, codigoDeBarras, valorUnitario, valorTotal, valorTotalOPM) {
   _classCallCheck(this, OPM);
