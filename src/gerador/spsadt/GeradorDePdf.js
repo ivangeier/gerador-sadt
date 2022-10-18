@@ -280,7 +280,7 @@ var GeradorDePdf = function () {
       x += larguraCampoGrandeMedio + distanciaEntreCampos;
       this.campo(pdf, '91 - Regime de atendimento', this.guia.atendimento.regime, x, y, larguraCampo);
       x += larguraCampo + distanciaEntreCampos;
-      this.campo(pdf, '92 - Saúde Ocupaciona', this.guia.atendimento.ocupacional, x, y, larguraCampo);
+      this.campo(pdf, '92 - Saúde Ocupacional', this.guia.atendimento.ocupacional, x, y, larguraCampo);
 
 
       y += alturaCampo + distanciaEntreCampos;

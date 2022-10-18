@@ -1,6 +1,6 @@
 {
   "name": "gerador-sadt",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Gerador de guias SP/SADT e Consulta em PDF seguindo os padrões estipulados pela ANS (Agência Nacional de Saúde).",
   "main": "lib/index.js",
   "files": [
